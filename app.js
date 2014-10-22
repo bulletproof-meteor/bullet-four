@@ -6,7 +6,7 @@ Todos.allow({
 
 Meteor.methods({
   addTodo: function(title) {
-    var a =  Todos.insert({'title': title});
+    var a =  Todos.insert({'$title': title});
   }
 });
 
@@ -23,7 +23,11 @@ if(Meteor.isClient) {
     'click #add-todo': function () {
       var todoText = $('#input-todo').val();
       if(todoText.trim() != ""){
-        Meteor.call('addTodo', todoText);
+        Meteor.call('addTodo', todoText, function(err) {
+          if(err) {
+            alert(err.reason);
+          }
+        });
         $('#input-todo').val('');
       }
     },
