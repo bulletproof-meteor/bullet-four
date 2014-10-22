@@ -6,6 +6,7 @@ Todos.allow({
 
 Meteor.methods({
   addTodo: function(title) {
+    check(title, String);
     var a =  Todos.insert({'$title': title});
   }
 });
